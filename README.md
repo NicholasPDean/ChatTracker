@@ -13,46 +13,65 @@ Project that involves processing of big data.
 
 1.) Introduction 
    --------------------------------
-   
-The MiniRogue game was created for an introductory CS course, and it uses character-based graphics. In this game, the player's objective is to find a golden idol while navigating a series of dungeons. The player will run into monsters, find items, and descend staircases during the journey. 
 
-The MiniRogue dungeon is 5 levels deep. When the game starts, the player is placed on level 0; the deepest level is level 4.
-At the start of a new game and every time the player takes a stairway down, a new level is randomly generated.
+In this project, my professor tasked me with creating an optimal data structure that would help keep track of users and their contributions to specific chats. In this case, users and chats are just represented as input strings. The professor provided me with a set of working but extremely slow functions, and my goal was to reduce the time-complexity of these functions.
+
+The program and set of functions run based off of an input file. The format of the input file can be seen below:
+
+**j userName chatName**  which requests a call to join(userName, chatName)\
+**t chatName**           which requests a call to terminate(chatName)\
+**c userName**           which requests a call to contribute(userName)\
+**l userName chatName**  which requests a call to leave(userName, chatName)\
+**l userName**           which requests a call to leave(userName)
+
+Each of the above lines corresponds to a certain member function within a class that I created. Below, you will find descriptions of what each input line does and what the corresponding member function should return:
+
+**j userName chatName** // A user joins a chat\
+
+The user joins a new or existing chat. Whether or not the user was associated with that chat before, that chat is now the user's current chat. If the user had previously joined that chat and not left it since then, the user's count of contributions to that chat remains the same; otherwise, it becomes 0. If the chat had previously been joined by this or any other user and has not been terminated since then, the chat's count of contributions is unchanged; otherwise, it becomes 0.
+
+**t chatName** // A chat is terminated\
+
+If the chat has no users associated with it or does not exist, this function returns 0; otherwise, all users associated with the chat are no longer associated with it (as if they left the chat), and the function returns the chat's count of contributions. If that chat was any user's current chat, then the existing chat the user most recently joined and hasn't left since most recenty joining becomes the user's current chat; if there is no such chat, then that user has no current chat.
+
+  
+**c userName** // A user contributes to that user's current chat\
+
+If the user has no current chat, return 0. Otherwise, both the user's count of contributions to that user's current chat and that current chat's count of contributions are increased by one. Return the resulting user's count of contributions to that current chat.
+
+**l userName chatName** // A user leaves a chat\
+
+If the user is not associated with the indicated chat, return -1. Otherwise, the user is no longer associated with that chat, and the function returns the user's count of contributions to that chat. If that chat was the user's current chat, then the existing chat the user most recently joined and hasn't left since most recenty joining becomes the user's current chat; if there is no such chat, then that user has no current chat. This function leaves the chat's count of contributions unchanged.
+  
+**l userName** // A user leaves that user's current chat\
+
+If the user has no current chat, return -1. Otherwise, the user is no longer associated with that user's current chat, and the function returns the user's count of contributions made to that chat. The existing chat the user most recently joined and hasn't left since most recenty joining bcomes the user's current chat; if there is no such chat, then that user has no current chat. This function leaves the chat's count of contributions unchanged.
+
+Below is an example set of lines that could appear in a valid input file:
+
+**j Fred Breadmaking\
+j Lucy Breadmaking\
+c Lucy\
+c Fred\
+c Fred\
+l Fred Breadmaking\
+t Breadmaking**
+
+In the above example, the line **l Fred Breadmaking** should have the corresponding member function return **2**. In the line **t Breadmaking**, the corresponding member function should return **3**.
 
 2.) Results 
    -------------------
-   
+
+To improve the given functions, I utilized the vector and list C++ STL's to create a hashtable that stores information regarding a user's contribution to a certain chat. 
+
 The player is shown on screen as an **@**.
 
 The different types of monsters that you may encounter and their corresponding symbols are below:
 
-Bogeymen (shown on screen as a **B**)\
-Dragons (shown on screen as a **D**)\
-Goblins (shown on screen as a **G**)\
-Snakewomen (shown on screen as an **S**)
-
-The different types of objects you may encounter are below:
-
-Impenetrable walls (shown on screen as **#**)\
-Stairways down to the next level (shown on screen as **>**)\
-The golden idol (shown on screen as **&**)\
-Weapons (all weapons are shown on screen as a **)** character)\
-Maces\
-Short swords\
-Long swords\
-Magic fangs of sleep (that put an opponent to sleep)\
-Magic axes (that hit an opponent more often than regular weapons)\
-Scrolls (all scrolls are shown on screen as **?**)\
-A scroll of teleportation (when read, randomly moves the player)\
-A scroll of improve armor (when read, makes it harder for monsters to hit the player)\
-A scroll of raise strength (when read, makes a player's blows more effective)\
-A scroll of enhance health (when read, raises maximum hit points)\
-A scroll of enhance dexterity (when read, makes it more likely the player will hit an opponent)
-
 3.) What I Learned
    ------------
 
-During this project, I applied many fundamental CS concpets to create a playable game. Some of the concepts I incorporated include but are not limited to: classes, constructors, destructors, inheritance, polymorphism, recursion, and function time-complexity. 
+During this project, I learned the importance of carefully selecting appropriate data structures to optimize one's program. After all, even if someone builds a working product, if it operates at the pace of a snail, it is not a viable solution. I learned that speed and efficiency are key components to great code. 
 
 ------------------------------------------------------------------------
 Created by Nicholas P. Dean on 9/10/20.
