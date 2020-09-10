@@ -62,10 +62,10 @@ In the above example, the line **l Fred Breadmaking** should have the correspond
 2.) Results 
    -------------------
 
-To improve the given functions, I utilized the vector and list C++ STL's to create a hashtable that stores information regarding a user's contribution to a certain chat. The input file used to test these functions had roughly **270,000 input lines**, **1,000 chats**, and **10,000 users**. The results of my improved functions are below:
+To improve the given functions, I utilized the vector and list C++ STL's to create a hashtable that stores information regarding a user's contribution to a certain chat. The input file used to test these functions had roughly **75,000 input lines**, **1,000 chats**, and **10,000 users**. The results of my improved functions are below:
 
-Processing Time for **Original Functions**:    **44.44 milliseconds**  
-Processing Time for **My Improved Functions**: **44.44 milliseconds**
+Processing Time for **Original Functions**:    **5957.48 milliseconds**  
+Processing Time for **My Improved Functions**: **43.44 milliseconds**
 
 3.) What I Learned
    ------------
