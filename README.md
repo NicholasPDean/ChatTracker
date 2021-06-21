@@ -1,4 +1,7 @@
 # ChatTracker
+
+*Code could not be posted online as this code is a solution for a class assignment.
+
 Project that involves processing of big data.
 
    Table of Contents
